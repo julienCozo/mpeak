@@ -9,23 +9,7 @@ from fastapi import Depends, HTTPException
 from mpeak.schemas import PeakSchema, PeakCreateSchema
 
 
-def get_db():
-    """
-
-    :return:
-    """
-    database = SessionLocal()
-    try:
-        yield database
-    finally:
-        database.close()
-
-
 def read_peaks(db: Session, skip: int = 0, limit: int = 100):
-    """
-
-    :return:
-    """
     peaks = db.query(Peak).offset(skip).limit(limit).all()
     return peaks
 
@@ -47,11 +31,6 @@ def boucing_peaks(
 
 
 def read_peak(db: Session, peak_id: int):
-    """
-
-    :param peak_id:
-    :return:
-    """
     peak = db.query(Peak).filter(Peak.id == peak_id).first()
     return peak
 
@@ -62,11 +41,6 @@ def read_peak_by_name(db: Session, peak_name: str):
 
 
 def create_peak(db: Session, peak: PeakCreateSchema):
-    """
-
-    :param peak:
-    :return:
-    """
     db_peak = Peak(name=peak.name, altitude=peak.altitude, lat=peak.lat, lon=peak.lon)
     db.add(db_peak)
     db.commit()
@@ -75,12 +49,6 @@ def create_peak(db: Session, peak: PeakCreateSchema):
 
 
 def update_peak(db: Session, peak_id: int, peak: PeakSchema):
-    """
-
-    :param peak_id:
-    :param peak:
-    :return:
-    """
     db_peak = db.query(Peak).filter(Peak.id == peak_id).first()
     if db_peak:
         db_peak.name = peak.name
@@ -93,11 +61,6 @@ def update_peak(db: Session, peak_id: int, peak: PeakSchema):
 
 
 def delete_peak(db: Session, peak_id: int):
-    """
-
-    :param peak_id:
-    :return:
-    """
     db_peak = db.query(Peak).filter(Peak.id == peak_id).first()
     if db_peak:
         db.delete(db_peak)
