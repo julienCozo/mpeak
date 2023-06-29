@@ -30,7 +30,7 @@ Here a list of implemented routes with examples
 List all peak with classic pagination implemented (skip and limit)
    * http://localhost:8000/peaks?limit=100
 
-List peak in a boucing box with query params max_lat min_lat max_lon min_lon
+List peak in a bouncing box with query params max_lat min_lat max_lon min_lon
    * http://localhost:8000/boucing_peaks?min_lat=10.1&max_lat=20.1&min_lon=32.1&max_lon=36.8
 
 Read a peak (GET)

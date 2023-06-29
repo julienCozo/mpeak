@@ -1,5 +1,5 @@
 """
-Schema for peak
+Schemas for peak
 """
 from pydantic import BaseModel
 

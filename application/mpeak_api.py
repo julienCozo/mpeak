@@ -14,7 +14,7 @@ from mpeak.controller import (
     create_peak,
     update_peak,
     delete_peak,
-    boucing_peaks
+    boucing_peaks,
 )
 from mpeak.schemas import PeakSchema, PeakCreateSchema
 
@@ -29,17 +29,28 @@ def get_db():
     finally:
         database.close()
 
+
 @app.get("/", response_model=AnyStr)
 def root_call():
     return "Welcome on moutain peak API"
+
 
 @app.get("/peaks", response_model=List[PeakSchema])
 def list_all(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return read_peaks(db, skip=skip, limit=limit)
 
+
 @app.get("/boucing_peaks", response_model=List[PeakSchema])
-def peak_in_a_box(min_lat: float, max_lat: float, min_lon: float, max_lon: float, db: Session = Depends(get_db)):
-    return boucing_peaks(db, min_lat=min_lat, max_lat=max_lat, min_lon=min_lon, max_lon=max_lon)
+def peak_in_a_box(
+    min_lat: float,
+    max_lat: float,
+    min_lon: float,
+    max_lon: float,
+    db: Session = Depends(get_db),
+):
+    return boucing_peaks(
+        db, min_lat=min_lat, max_lat=max_lat, min_lon=min_lon, max_lon=max_lon
+    )
 
 
 @app.get("/peak/{peak_id}", response_model=PeakSchema)

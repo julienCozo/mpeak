@@ -4,7 +4,7 @@ FROM python:3.11
 # Répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copie des fichiers de ton application
+# Copie des fichiers de l'application
 COPY . /app
 
 # Installation des dépendances
